@@ -1,6 +1,25 @@
 # Coding Black Females Academy: Fraud detection app
 
-## Project Documentation
+## Preview the application
+The application is deployed via Heroku to https://cbf-js-fraud-detection-f83c06f96621.herokuapp.com/. It's updated and redeployed on changes to the `main` branch.
+
+### Prerequisites
+* Node.js v20.0.0+ and npm. Both are downloadable from https://nodejs.org/en
+
+### Getting started
+1. start the Node.js Express server:
+```bash
+cd server
+npm start
+```
+2. start the React application
+```bash
+cd client
+npm start
+```
+3. open your browser to view the application at http://localhost:3000/js-fraud-detection
+
+## Project documentation
 * [Requirements](Requirements.md)
 * [Project board](https://github.com/users/sassela/projects/2/views/1)
-* [Architecture diagram](architecture.png)
+* [Architecture diagram](architecture-diagram.png)
