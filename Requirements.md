@@ -23,8 +23,9 @@ As a fraud detection specialist at an international bank, I want...
 2. to group transaction data by user
 3. to manually flag suspicious transactions (single)
 4. to view similar transactions, so I can determine whether to investigate them
-5. to manually flag suspicious transaction groups
-6. to view similar transaction groups, so I can determine whether to investigate them
+<!-- 5. to manually flag suspicious transaction groups -->
+<!-- 6. to view similar transaction groups, so I can determine whether to investigate them -->
 7. to create fraud detection rules
 8. to view transactions that match detection rules
 9. to create fraud detection email alerts, returning transactions for a given rule
+<!-- 10. to view transactions in a dashboard -->
