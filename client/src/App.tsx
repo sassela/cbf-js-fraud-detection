@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import TransactionPage from "./pages/TransactionPage";
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -13,8 +14,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        Fraud Detection App
         <p>{!data ? "Loading..." : data}</p>
       </header>
+      <TransactionPage/>
     </div>
   );
 }
