@@ -2,7 +2,7 @@
   "name": "cbf-js-fraud-detection",
   "version": "1.0.0",
   "description": "## Project Documentation * [Requirements](Requirements.md) * [Project board](https://github.com/users/sassela/projects/2/views/1) * [Architecture diagram](architecture.png)",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "node server/index.js",
     "build": "cd client && npm install && npm run build"
