@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/sassela/cbf-js-fraud-detection#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "@types/jest": "^29.5.4",
+    "@types/node": "^20.5.9",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "express": "^4.18.2",
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": "20.5.1"
