@@ -9,15 +9,15 @@ const TransactionTable = ({transactions}:TransactionTableProps) => {
   return (
     <div>
       <h1>Transactions</h1>
-      <table>
+      <table className="table">
         <thead>
           <tr>
-            <th>Transaction ID</th>
-            <th>Account ID</th>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Description</th>
+            <th scope="col">Transaction ID</th>
+            <th scope="col">Account ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Type</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
           </tr>
         </thead>
         <tbody>
