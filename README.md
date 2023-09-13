@@ -7,12 +7,13 @@ The application is deployed via Heroku to https://js-fraud-detection-7db71b7874d
 * Node.js v20.0.0+ and npm. Both are downloadable from https://nodejs.org/en
 
 ### Getting started
-1. start the Node.js Express server:
+1. request access to the `.env` file, containing ElasticSearch Cloud creds, from [@sassela](https://github.com/sassela)
+2. start the Node.js Express server:
 ```bash
 cd server
 npm start
 ```
-2. start the React application
+1. start the React application
 ```bash
 cd client
 npm start
