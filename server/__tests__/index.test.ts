@@ -2,9 +2,9 @@ import request from 'supertest';
 import app from '../src/index';
 
 // TODO: mock elasticsearch
-describe('/search Endpoint Tests', () => {
+describe('/transactions Endpoint Tests', () => {
   it('should respond with a 200 status code and return valid Elasticsearch results', async () => {
-    const response = await request(app).get('/search');
+    const response = await request(app).get('/transactions');
     const elasticsearch_default_hits = 10
 
     expect(response.status).toBe(200);
@@ -20,7 +20,7 @@ describe('/search Endpoint Tests', () => {
   //     },
   //   }));
 
-  //   const response = await request(app).get('/search');
+  //   const response = await request(app).get('/transactions');
 
   //   expect(response.status).toBe(500);
   //   expect(response.body).toEqual({ error: 'Internal server error.' });

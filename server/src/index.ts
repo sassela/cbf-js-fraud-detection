@@ -26,12 +26,11 @@ app.get("/api", (req: Request, res: Response) => {
   res.json({ message: "Hello from server!" });
 });
 
-// Handle GET requests to /search route
-app.get("/search", async (req: Request, res: Response) => {
+// Handle GET requests to /transactions route
+app.get("/transactions", async (req: Request, res: Response) => {
   const es_index: string = "ulb_credit_card_fraud";
 
   try {
-    // const { body } = await client.search({
     const response = await client.search({
       index: es_index,
     });
