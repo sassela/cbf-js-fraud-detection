@@ -51,3 +51,5 @@ app.get('*', (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+export default app;
