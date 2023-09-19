@@ -8,7 +8,7 @@ const TransactionRow = ({ transaction }: TransactionRowProps) => {
   const amount = transaction.Amount ? transaction.Amount.toFixed(2) : 'N/A';
   return (
     <tr>
-      <td>{transaction.Class}</td>
+      <td className="text-center">{transaction.Class}</td>
       <td>{transaction.Time}</td>
       <td>£{amount}</td>
       <td>{transaction.V1}</td>

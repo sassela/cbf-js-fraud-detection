@@ -8,10 +8,10 @@ interface TransactionTableProps {
 const TransactionTable = ({ transactions }: TransactionTableProps) => {
   return (
     <div>
-      <table className="table">
+      <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Class</th>
+            <th scope="col">Fraudulent?</th>
             <th scope="col">Time</th>
             <th scope="col">Amount</th>
             <th scope="col">V1</th>
