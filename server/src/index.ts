@@ -21,6 +21,14 @@ const client = new Client({
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
+// Enable CORS for all routes
+app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 // Handle GET requests to /api route
 app.get("/api", (req: Request, res: Response) => {
   res.json({ message: "Hello from server!" });

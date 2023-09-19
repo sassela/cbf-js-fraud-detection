@@ -1,28 +1,32 @@
-import { Transaction } from '../types/Transaction';
+import React, { useEffect, useState } from 'react';
 import TransactionTable from '../components/TransactionTable';
+import { ApiResponse } from '../types/ApiResponse';
 
-const sampleTransactions: Transaction[] = [
-  {
-    transactionId: '1',
-    accountId: 'A123',
-    date: new Date(),
-    type: 'DEPOSIT',
-    amount: 1000.0,
-    description: 'Initial deposit',
-  },
-  {
-    transactionId: '2',
-    accountId: 'A123',
-    date: new Date(),
-    type: 'WITHDRAWAL',
-    amount: -500.0,
-    description: 'ATM Withdrawal',
-  },
-];
+const TransactionPage: React.FC = () => {
+  const [transactions, setTransactions] = useState<ApiResponse | null>(null);
 
-const TransactionPage = () => {
+  useEffect(() => {
+    // Fetch data from the /transactions endpoint
+    // TODO: API URL in env var
+    fetch('http://localhost:3001/transactions')
+      .then((response) => response.json())
+      .then((data: ApiResponse) => {
+        setTransactions(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
-    <TransactionTable transactions={sampleTransactions}/>
+    <div>
+      <h1>Transaction Page</h1>
+      {transactions ? (
+        <TransactionTable transactions={transactions.hits.hits} />
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
   );
 };
 
