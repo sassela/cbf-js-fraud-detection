@@ -1,27 +1,32 @@
 {
-  "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:9000",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "5.0.0",
+    "swr": "^1.0.1",
+    "web-vitals": "^1.0.1",
+    "workbox-background-sync": "^5.1.3",
+    "workbox-broadcast-update": "^5.1.3",
+    "workbox-cacheable-response": "^5.1.3",
+    "workbox-core": "^5.1.3",
+    "workbox-expiration": "^5.1.3",
+    "workbox-google-analytics": "^5.1.3",
+    "workbox-navigation-preload": "^5.1.3",
+    "workbox-precaching": "^5.1.3",
+    "workbox-range-requests": "^5.1.3",
+    "workbox-routing": "^5.1.3",
+    "workbox-strategies": "^5.1.3",
+    "workbox-streams": "^5.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -35,5 +40,19 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "devDependencies": {
+    "@cypress/webpack-dev-server": "^1.8.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^20.6.3",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "18.2.0",
+    "autoprefixer": "^10.4.2",
+    "typescript": "4.1.2"
+  },
+  "engines": {
+    "node": "20.5.1"
+  }
 }

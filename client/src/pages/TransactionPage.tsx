@@ -7,8 +7,7 @@ const TransactionPage: React.FC = () => {
 
   useEffect(() => {
     // Fetch data from the /transactions endpoint
-    // TODO: API URL in env var
-    fetch('http://localhost:3001/transactions')
+    fetch('/transactions')
       .then((response) => response.json())
       .then((data: ApiResponse) => {
         setTransactions(data);

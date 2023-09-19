@@ -1,20 +1,15 @@
 {
-  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true
-  },
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "rootDir": "./src",
-    "moduleResolution": "node",
-    "checkJs": true,
-    "outDir": "./dist",
+    "composite": true,
+    "module": "commonJS",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true
-  }
+    "target": "es2017",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "types": ["jest", "node"]
+  },
+  "include": ["src", "__tests__"],
+  "exclude": ["dist"],
+  "lib": ["es2017"]
 }

@@ -2,12 +2,21 @@ import dotenv from 'dotenv';
 import path from 'path';
 import express, { Request, Response } from 'express';
 import { Client } from '@elastic/elasticsearch';
+import { port } from "./config";
+// import express from "express";
+import { resolve } from "path";
+
+
+
+// export default app;
 
 dotenv.config();
 
-const PORT: number = Number(process.env.PORT) || 3001;
+// const PORT: number = Number(process.env.SERVER_PORT) || 3010;
 
+// Create the express application
 const app = express();
+
 const client = new Client({
   cloud: {
     id: process.env.ELASTIC_CLOUD_ID!,
@@ -18,8 +27,8 @@ const client = new Client({
   },
 });
 
-// Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+// // Have Node serve the files for our built React app
+// app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Enable CORS for all routes
 app.use((_req, res, next) => {
@@ -50,13 +59,32 @@ app.get("/transactions", async (req: Request, res: Response) => {
   }
 });
 
-// All other GET requests not handled before will return our React app
-app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// // All other GET requests not handled before will return our React app
+// // app.get('*', (req: Request, res: Response) => {
+// //   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// // });
+
+// app.use(express.static(path.join(__dirname, 'client/build')));
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'))
+// });
+
+// app.listen(PORT, () => {
+//   console.log(`Server listening on ${PORT}`);
+// });
+
+
+// Declare the path to frontend's static assets
+console.log(process.env.NODE_ENV);
+app.use(express.static(resolve("..", "client", "build")));
+
+
+app.get("*", (_, response) => {
+  response.sendFile(resolve("..", "client", "build", "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+app.listen(port);
+console.log(`App listening on port ${port}...`);
 
 export default app;
