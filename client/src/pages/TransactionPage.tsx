@@ -20,7 +20,8 @@ const TransactionPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Transaction Page</h1>
+      <h1>Transactions</h1>
+      {/* TODO: use Loading component */}
       {transactions ? (
         <TransactionTable transactions={transactions.hits.hits} />
       ) : (
