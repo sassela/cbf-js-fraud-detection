@@ -5,7 +5,7 @@ import { Client } from '@elastic/elasticsearch';
 
 dotenv.config();
 
-const PORT: number = Number(process.env.PORT) || 3001;
+const PORT: number = Number(process.env.SERVER_PORT) || 3001;
 
 const app = express();
 const client = new Client({
