@@ -1,4 +1,4 @@
-import { Transaction } from '../../Transaction';
+import { Transaction } from '../types/Transaction';
 import TransactionRow from './TransactionRow';
 
 interface TransactionTableProps {
