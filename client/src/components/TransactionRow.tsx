@@ -1,3 +1,4 @@
+import React from 'react'
 import { Transaction } from '../types/Transaction';
 
 interface TransactionRowProps {
