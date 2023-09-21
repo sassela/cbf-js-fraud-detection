@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react';
 import { Transaction } from '../types/Transaction';
 
 interface TransactionRowProps {
@@ -6,12 +6,28 @@ interface TransactionRowProps {
 }
 
 const TransactionRow = ({ transaction }: TransactionRowProps) => {
-  const amount = transaction.Amount ? transaction.Amount.toFixed(2) : 'N/A';
+  const [isChecked, setIsChecked] = useState(transaction.Class === 1);
+
+  const toggleCheckbox = () => {
+    const updatedClass = isChecked ? 0 : 1;
+    setIsChecked(!isChecked);
+    // temp copy of updatedTransaction
+    // TODO: request to API
+    const updatedTransaction = { ...transaction, Class: updatedClass };
+    console.log(updatedTransaction);
+  };
+
   return (
     <tr>
-      <td className="text-center">{transaction.Class}</td>
+      <td className="text-center">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={toggleCheckbox}
+        />
+      </td>
       <td>{transaction.Time}</td>
-      <td>£{amount}</td>
+      <td>£{transaction.Amount ? transaction.Amount.toFixed(2) : 'N/A'}</td>
       <td>{transaction.V1}</td>
       <td>{transaction.V2}</td>
       <td>{transaction.V3}</td>

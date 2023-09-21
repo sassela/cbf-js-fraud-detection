@@ -1,4 +1,3 @@
-import React from 'react'
 import { Hit } from '../types/Hit';
 import TransactionRow from './TransactionRow';
 
