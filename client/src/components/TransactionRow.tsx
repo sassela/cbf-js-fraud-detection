@@ -3,9 +3,10 @@ import { Transaction } from '../types/Transaction';
 
 interface TransactionRowProps {
   transaction: Transaction;
+  id: String
 }
 
-const TransactionRow = ({ transaction }: TransactionRowProps) => {
+const TransactionRow = ({ transaction, id }: TransactionRowProps) => {
   const [isChecked, setIsChecked] = useState(transaction.Class === 1);
 
   const toggleCheckbox = () => {
@@ -19,6 +20,7 @@ const TransactionRow = ({ transaction }: TransactionRowProps) => {
 
   return (
     <tr>
+      <td>{id}</td>
       <td className="text-center">
         <input
           type="checkbox"

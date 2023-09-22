@@ -11,6 +11,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
       <table className="table table-striped">
         <thead>
           <tr>
+            <th scope="col">Transaction ID</th>
             <th scope="col">Fraudulent?</th>
             <th scope="col">Time</th>
             <th scope="col">Amount</th>
@@ -46,7 +47,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         </thead>
         <tbody>
           {transactions.map((transaction, index) => (
-            <TransactionRow key={index} transaction={transaction._source} />
+            <TransactionRow key={index} transaction={transaction._source} id={transaction._id} />
           ))}
         </tbody>
       </table>
