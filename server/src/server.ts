@@ -123,7 +123,9 @@ app.post('/similar-transactions', async (req, res) => {
 
     const response = await client.search(searchRequest);
 
-    res.json(response.hits.hits);
+    console.log("API response:")
+    console.log(response)
+    res.json(response);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });

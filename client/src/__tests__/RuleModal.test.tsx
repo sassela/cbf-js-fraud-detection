@@ -11,7 +11,7 @@ describe('RuleModal', () => {
       <RuleModal show={true} onClose={onCloseMock} onSubmit={onSubmitMock} />
     );
 
-    expect(screen.getByText('New Rule')).toBeInTheDocument();
+    expect(screen.getByText('Create Rule')).toBeInTheDocument();
 
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
     expect(screen.getByText('Properties')).toBeInTheDocument();

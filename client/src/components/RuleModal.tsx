@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { Rule } from '../types/Rule';
+import { Property } from '../types/Property';
 
 interface RuleModalProps {
   show: boolean;
   onClose: () => void;
-  onSubmit: (rule:Rule) => void;
+  onSubmit: (rule: Rule) => void;
 }
 
 const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [selectedValues, setSelectedValues] = useState<number[]>([]);
   const [ruleName, setRuleName] = useState<string>('');
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    if (checked) {
+  const handleNumericChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
       setSelectedValues([...selectedValues, value]);
-    } else {
-      setSelectedValues(selectedValues.filter((v) => v !== value));
     }
   };
 
@@ -26,7 +25,24 @@ const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ruleName, selectedValues});
+
+    const properties: Property[] = [];
+    selectedValues.forEach((value, index) => {
+      if (!isNaN(value)) {
+        properties.push({
+          propertyName: `V${index + 1}`,
+          propertyValue: value,
+        });
+      }
+    });
+
+    const rule: Rule = {
+      ruleName,
+      properties,
+    };
+
+    onSubmit(rule);
+
     setSelectedValues([]);
     setRuleName('');
     onClose();
@@ -35,19 +51,18 @@ const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
   const propertiesCount = 28;
 
   return (
-    <div className={`modal${show ? ' d-block' : ''}`} tabIndex={-1} role="dialog">
+    <div className={`modal${show ? ' d-block' : ' d-none'}`} tabIndex={-1} role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">New Rule</h5>
+            <h5 className="modal-title">Create Rule</h5>
             <button
               type="button"
               className="close"
               onClick={onClose}
               aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+              data-testid="rule-modal-close"
+            />
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
@@ -68,20 +83,13 @@ const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
                   {Array.from(Array(propertiesCount).keys()).map((n: number) => (
                     <label key={n} htmlFor={"value-"+n}>
                       <input
-                        type="checkbox"
+                        type="number"
+                        step="0.01"
                         name={"V" + (n + 1)}
-<<<<<<< Updated upstream
-                        value={"V" + (n + 1)}
-                        checked={selectedValues.includes("V" + (n + 1))}
-                        onChange={handleCheckboxChange}
-                      />{' '}
-                      {"V" + (n + 1)}
-=======
                         onChange={handleNumericChange}
                         placeholder={"V" + (n + 1)}
                         id={"value-"+n}
                       />
->>>>>>> Stashed changes
                     </label>
                   ))}
                 </div>

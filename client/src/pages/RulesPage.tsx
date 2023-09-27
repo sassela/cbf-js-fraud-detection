@@ -9,7 +9,13 @@ interface RuleItemProps {
 function RuleItem({ rule }: RuleItemProps) {
   return (
     <li>
-      Rule Name: {rule.ruleName}, Properties: {rule.selectedValues.join(', ')}
+      Rule Name: {rule.ruleName}, Properties:{' '}
+      {rule.properties.map((property, index) => (
+        <span key={index}>
+          {property.propertyName}: {property.propertyValue}
+          {index < rule.properties.length - 1 ? ', ' : ''}
+        </span>
+      ))}
     </li>
   );
 }
@@ -31,15 +37,10 @@ const RulesPage = () => {
     setShowModal(false);
   };
 
-  const handleSubmit = ({ruleName, selectedValues}:Rule) => {
-    const newRule = {
-      ruleName,
-      selectedValues,
-    };
+  const handleSubmit = (rule: Rule) => {
+    const updatedRules = [...rules, rule];
 
-    const updatedRules = [...rules, newRule];
-
-    // Update the local storage with the updated rules
+    // Update local storage with the updated rules
     localStorage.setItem('rules', JSON.stringify(updatedRules));
 
     setRules(updatedRules);
