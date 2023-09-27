@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 import { Client } from '@elastic/elasticsearch';
 import { port } from "./config";
 import { resolve } from "path";
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
