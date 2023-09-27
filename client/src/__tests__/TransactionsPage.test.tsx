@@ -1,9 +1,8 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react';
-import TransactionPage from './TransactionPage';
+import TransactionsPage from '../pages/TransactionsPage';
 
 test('renders transactions', () => {
-  render(<TransactionPage />);
+  render(<TransactionsPage />);
   const linkElement = screen.getByText(/transactions/i);
   expect(linkElement).toBeInTheDocument();
 });

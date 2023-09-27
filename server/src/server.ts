@@ -35,6 +35,33 @@ app.get("/api", (req: Request, res: Response) => {
   res.json({ message: "Hello from server!" });
 });
 
+app.get("/transaction/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const response = await client.search({
+      index: es_index,
+      body: {
+        query: {
+          match: {
+            _id: id
+          },
+        },
+      },
+    });
+
+    if (response.hits.hits.length === 0) {
+      res.status(404).json({ error: "Transaction not found." });
+    } else {
+      res.json(response.hits.hits[0]); // Return the first matching transaction
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+
 // Handle GET requests to /transactions route
 app.get("/transactions", async (req: Request, res: Response) => {
   try {

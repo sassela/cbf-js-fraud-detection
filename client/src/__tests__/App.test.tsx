@@ -3,6 +3,6 @@ import App from '../App';
 
 test('renders transactions', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Fraud Detection App/i);
+  const linkElement = screen.getByText(/Transactions/i);
   expect(linkElement).toBeInTheDocument();
 });

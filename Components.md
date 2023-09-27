@@ -4,7 +4,7 @@
 * Alerts
 
 ## Components
-* TransactionTable
+* TransactionsTable
 * TransactionRow
 * TransactionGroupBy
 * TransactionFlag

@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TransactionTable from '../components/TransactionTable';
-import { ApiResponse } from '../types/ApiResponse';
+import { Hit } from '../types/Hit';
+import { useLoaderData } from 'react-router-dom';
 
-const TransactionPage: React.FC = () => {
-  const [transactions, setTransactions] = useState<ApiResponse | null>(null);
+export async function loader({ params }: any) {
+  const transactionId = params.id;
+  return { transactionId };
+}
+
+const TransactionPage = () => {
+  const [transaction, setTransaction] = useState<Hit | null>(null);
+  const { transactionId } = useLoaderData() as { transactionId: [] }
 
   useEffect(() => {
-    // Fetch data from the /transactions endpoint
-    fetch('/transactions')
+    fetch('/transaction/' + transactionId)
       .then((response) => response.json())
-      .then((data: ApiResponse) => {
-        setTransactions(data);
+      .then((data: Hit) => {
+        setTransaction(data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -18,15 +24,17 @@ const TransactionPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Transactions</h2>
-      {/* TODO: use Loading component */}
-      {transactions ? (
-        <TransactionTable transactions={transactions.hits.hits} />
+    <div className="container mt-4">
+      <h2 className="mb-4">Transaction {transactionId}</h2>
+      {transaction ? (
+        <div>
+          <TransactionTable transaction={transaction} />
+        </div>
       ) : (
         <p>Loading...</p>
       )}
     </div>
+
   );
 };
 
