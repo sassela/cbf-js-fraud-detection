@@ -3,11 +3,14 @@ import express, { Request, Response } from 'express';
 import { Client } from '@elastic/elasticsearch';
 import { port } from "./config";
 import { resolve } from "path";
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
 // Create the express application
 const app = express();
+const es_index: string = "ulb_credit_card_fraud";
+app.use(bodyParser.json());
 
 const client = new Client({
   cloud: {
@@ -34,17 +37,69 @@ app.get("/api", (req: Request, res: Response) => {
 
 // Handle GET requests to /transactions route
 app.get("/transactions", async (req: Request, res: Response) => {
-  const es_index: string = "ulb_credit_card_fraud";
-
   try {
     const response = await client.search({
       index: es_index,
     });
 
     res.json(response);
+    // TODO: res.json(response.hits.hits);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+// e.g.
+// curl -X POST http://localhost:3000/similar-transactions -H "Content-Type: application/json" -d '
+// {
+//   "query": {
+//     "V1": "1.00734026030141"
+//   }
+// }'
+
+
+// Express endpoint to handle the search request
+app.post('/similar-transactions', async (req, res) => {
+  try {
+    const { query } = req.body;
+
+    const boolQuery = {
+      bool: {
+        must: [],
+      },
+    };
+
+    // Loop through each key-value pair in the request
+    for (const [key, value] of Object.entries(query)) {
+      const numVal = Number(value)
+      const bound = 0.5
+
+      const rangeQuery = {
+        range: {
+          [key]: {
+            lte: numVal + bound,
+            gte: numVal - bound
+          },
+        },
+      };
+
+      boolQuery.bool.must.push(rangeQuery);
+    }
+
+    const searchRequest = {
+      index: es_index,
+      body: {
+        query: boolQuery,
+      },
+    };
+
+    const response = await client.search(searchRequest);
+
+    res.json(response.hits.hits);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -57,7 +112,9 @@ app.get("*", (_, response) => {
   response.sendFile(resolve("..", "client", "build", "index.html"));
 });
 
-app.listen(port);
-console.log(`App listening on port ${port}...`);
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port);
+  console.log(`App listening on port ${port}...`);
+}
 
 export default app;
