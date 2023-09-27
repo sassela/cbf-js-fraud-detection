@@ -8,17 +8,25 @@ import {
 } from "react-router-dom";
 import ErrorPage from './pages/ErrorPage';
 import TransactionPage, { loader as transactionPageLoader } from './pages/TransactionPage';
+import RulesPage from './pages/RulesPage';
+import Layout from './components/Layout';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout children={<App />}/>
+    ,
     errorElement: <ErrorPage />
   },
   {
     path: "/transaction/:id",
-    element: <TransactionPage />,
+    element: <Layout children={<TransactionPage />}/>
+    ,
     loader: transactionPageLoader
+  },
+  {
+    path: "/rules",
+    element: <Layout children={<RulesPage />}/>
   }
 ]);
 
