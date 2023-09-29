@@ -26,6 +26,8 @@ const TransactionRow = ({ transaction, id }: TransactionRowProps) => {
   return (
     <tr>
       <td>{id}</td>
+      <td>{transaction.Time}</td>
+      <td>£{transaction.Amount ? transaction.Amount.toFixed(2) : 'N/A'}</td>
       <td className="text-center">
         <input
           type="checkbox"
@@ -33,12 +35,10 @@ const TransactionRow = ({ transaction, id }: TransactionRowProps) => {
           onChange={toggleCheckbox}
         />
       </td>
-      <td>{transaction.Time}</td>
-      <td>£{transaction.Amount ? transaction.Amount.toFixed(2) : 'N/A'}</td>
-      <td>
+      <td className='text-center'>
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-outline-light"
           onClick={handleViewDetailClick}
         >
           View detail

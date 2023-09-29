@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import TransactionTable from '../components/TransactionTable';
 import { Hit } from '../types/Hit';
 import { useLoaderData } from 'react-router-dom';
+import Heading from '../components/Heading';
 
 export async function loader({ params }: any) {
   const transactionId = params.id;
@@ -24,8 +25,8 @@ const TransactionPage = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Transaction {transactionId}</h2>
+    <div className="column">
+      <Heading headingText={`Transaction ${transactionId}`} />
       {transaction ? (
         <div>
           <TransactionTable transaction={transaction} />

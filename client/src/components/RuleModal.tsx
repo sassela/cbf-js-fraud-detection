@@ -58,7 +58,7 @@ const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
             <h5 className="modal-title">Create Rule</h5>
             <button
               type="button"
-              className="close"
+              className="btn-close"
               onClick={onClose}
               aria-label="Close"
               data-testid="rule-modal-close"
@@ -77,13 +77,14 @@ const RuleModal = ({ show, onClose, onSubmit }: RuleModalProps) => {
                   id="rule-name"
                 />
               </div>
-              <div className="form-group">
-                <label>Select Rules:</label>
+              <div className="form-group my-2">
+                <label className="form-label">Properties</label>
                 <div>
                   {Array.from(Array(propertiesCount).keys()).map((n: number) => (
                     <label key={n} htmlFor={"value-"+n}>
                       <input
                         type="number"
+                        className="form-control-sm m-1"
                         step="0.01"
                         name={"V" + (n + 1)}
                         onChange={handleNumericChange}

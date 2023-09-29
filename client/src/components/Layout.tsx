@@ -1,11 +1,11 @@
 import Navigation from "./Navigation";
 
 
-const Layout = ({ children }:any) => {
+const Layout = ({ children }: any) => {
   return (
     <>
       <Navigation />
-      <main>{children}</main>
+      <main className='container'>{children}</main>
     </>
   );
-};export default Layout;
+}; export default Layout;

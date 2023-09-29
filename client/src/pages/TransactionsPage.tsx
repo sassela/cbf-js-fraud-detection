@@ -3,6 +3,7 @@ import TransactionsTable from '../components/TransactionsTable';
 import { ApiResponse } from '../types/ApiResponse';
 import FilterModal from '../components/FilterModal';
 import { Rule } from '../types/Rule';
+import HeaderRow from '../components/HeaderRow';
 
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState<ApiResponse | null>(null);
@@ -35,7 +36,7 @@ const TransactionsPage = () => {
   const handleModalClose = async (rule: Rule | null) => {
     setSelectedRule(rule);
 
-    if(rule) {
+    if (rule) {
       const requestBody: Record<string, number> = {};
       rule.properties.forEach((r) => {
         requestBody[r.propertyName] = r.propertyValue;
@@ -48,7 +49,7 @@ const TransactionsPage = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({query: requestBody}),
+          body: JSON.stringify({ query: requestBody }),
         });
 
         if (response.ok) {
@@ -66,26 +67,30 @@ const TransactionsPage = () => {
   };
 
   return (
-    <div>
-      <h2>Transactions</h2>
-      <button className="btn btn-primary" onClick={handleFilterClick}>
-        Filter
-      </button>
+    <>
+      <HeaderRow
+        headingText='Transactions'
+        ctaOnClick={handleFilterClick}
+        ctaText='Filter'
+      />
+      {
+        transactions ? (
+          <TransactionsTable transactions={transactions.hits.hits} />
+        ) : (
+          <p>Loading...</p>
+        )}
 
-      {transactions ? (
-        <TransactionsTable transactions={transactions.hits.hits} />
-      ) : (
-        <p>Loading...</p>
-      )}
+      {
+        showFilterModal && (
+          <FilterModal
+            rules={rules}
+            onClose={() => setShowFilterModal(false)}
+            onSubmit={handleModalClose}
+          />
+        )
+      }
+    </>
 
-      {showFilterModal && (
-        <FilterModal
-          rules={rules}
-          onClose={() => setShowFilterModal(false)}
-          onSubmit={handleModalClose}
-        />
-      )}
-    </div>
   );
 };
 

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import RuleModal from '../components/RuleModal';
 import { Rule } from '../types/Rule';
+import HeaderRow from '../components/HeaderRow';
+import Table from '../components/Table';
 
 interface RuleItemProps {
   rule: Rule;
@@ -8,16 +10,41 @@ interface RuleItemProps {
 
 function RuleItem({ rule }: RuleItemProps) {
   return (
-    <li>
-      Rule Name: {rule.ruleName}, Properties:{' '}
+    <>
       {rule.properties.map((property, index) => (
         <span key={index}>
           {property.propertyName}: {property.propertyValue}
           {index < rule.properties.length - 1 ? ', ' : ''}
         </span>
       ))}
-    </li>
+    </>
   );
+}
+
+const Head = () => {
+  return (
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+    </tr>
+  )
+}
+
+interface BodyProps {
+  rules: Rule[]
+}
+
+const Body = ({ rules }: BodyProps) => {
+  return (
+    <>
+      {rules.map((rule, index) => (
+        <tr key={index}>
+          <td>{rule.ruleName}</td>
+          <td><RuleItem key={index} rule={rule} /></td>
+        </tr>
+      ))}
+    </>
+  )
 }
 
 const RulesPage = () => {
@@ -48,19 +75,18 @@ const RulesPage = () => {
 
   return (
     <div>
-      <h2>Rules Page</h2>
-      <button className="btn btn-primary" onClick={openModal}>
-        New Rule
-      </button>
+      <HeaderRow
+        headingText='Rules'
+        ctaOnClick={openModal}
+        ctaText='New Rule'
+      />
 
       <RuleModal show={showModal} onClose={closeModal} onSubmit={handleSubmit} />
 
-      <h3>Rules:</h3>
-      <ul>
-        {rules.map((rule, index) => (
-          <RuleItem key={index} rule={rule} />
-        ))}
-      </ul>
+      <Table
+        head={<Head />}
+        body={<Body rules={rules} />}
+      />
     </div>
   );
 };

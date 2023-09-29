@@ -22,9 +22,7 @@ const FilterModal = ({ rules, onClose, onSubmit }: FilterModalProps) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Filter Rules</h5>
-            <button type="button" className="close" onClick={onClose} aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" className="btn-close" onClick={onClose} aria-label="Close"/>
           </div>
           <div className="modal-body">
             {rules.length === 0 ? (
