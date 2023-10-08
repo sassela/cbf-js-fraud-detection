@@ -1,17 +1,17 @@
 import request from 'supertest';
 import app from '../src/server';
 
-// TODO: mock elasticsearch
-const elasticsearch_default_resp_length = 10
+const defaultResponseLength = 10
+const successStatusCode = 200;
 
 describe('/transactions Endpoint Tests', () => {
   it('should respond with a 200 status code and return valid Elasticsearch results', async () => {
     const response = await request(app).get('/transactions');
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(successStatusCode);
     expect(response.body).toHaveProperty('hits');
     expect(response.body.hits).toHaveProperty('hits');
-    expect(response.body.hits.hits).toHaveLength(elasticsearch_default_resp_length);
+    expect(response.body.hits.hits).toHaveLength(defaultResponseLength);
   });
 
   describe('/similar-transactions Endpoint Tests', () => {
@@ -24,23 +24,28 @@ describe('/transactions Endpoint Tests', () => {
         .post('/similar-transactions')
         .send({ query: searchQuery });
 
-      const expectedStatusCode = 200;
 
-      expect(response.status).toBe(expectedStatusCode);
-      expect(response.body).toHaveLength(elasticsearch_default_resp_length);
+      expect(response.status).toBe(successStatusCode);
+      expect(response.body).toHaveProperty('hits');
+      expect(response.body.hits).toHaveProperty('hits');
+      expect(response.body.hits.hits).toHaveLength(defaultResponseLength);
     });
   });
+});
 
-  // it('should handle errors gracefully and respond with a 500 status code', async () => {
-  //   jest.mock('elasticsearch', () => ({
-  //     search: () => {
-  //       throw new Error('Mocked Elasticsearch error');
-  //     },
-  //   }));
+describe('Test the /transaction/:id endpoint', () => {
+  it('should respond with a 404 status when transaction is not found', async () => {
+    const response = await request(app).get('/transaction/nonexistent-id');
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ error: 'Transaction not found.' });
+  });
 
-  //   const response = await request(app).get('/transactions');
+  it('should respond with a 200 status and transaction data when transaction is found', async () => {
+    const validTransactionId = '1gmOjooBs-LI1g6WCNWq';
+    const response = await request(app).get(`/transaction/${validTransactionId}`);
 
-  //   expect(response.status).toBe(500);
-  //   expect(response.body).toEqual({ error: 'Internal server error.' });
-  // });
+    expect(response.status).toBe(successStatusCode);
+    expect(response.body).toHaveProperty('_id');
+    expect(response.body._id).toBe(validTransactionId);
+  });
 });

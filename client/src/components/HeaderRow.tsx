@@ -2,7 +2,6 @@ import Heading from "./Heading";
 
 interface HeaderRowProps {
   headingText: string,
-  // TODO: fix type
   ctaOnClick: any,
   ctaText: string
 }

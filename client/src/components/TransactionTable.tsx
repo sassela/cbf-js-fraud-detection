@@ -17,7 +17,6 @@ const Head = () => {
 const Body = ({ transaction }: TransactionTableProps) => {
   return (
     <>
-      {/* TODO: sort fields */}
       {Object.entries(transaction._source).map(([field, value]) => (
         <tr key={field}>
           <td>{field}</td>

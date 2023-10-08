@@ -34,8 +34,5 @@
     "elasticsearch": "^16.7.3",
     "express": "^4.17.2",
     "react-router-dom": "^6.16.0"
-  },
-  "engines": {
-    "yarn": "YARN NO LONGER USED - use npm instead."
   }
 }

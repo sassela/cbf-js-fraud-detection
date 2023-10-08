@@ -51,6 +51,7 @@ const RulesPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [rules, setRules] = useState<Rule[]>([]);
 
+  // fetch existing rules from local storage
   useEffect(() => {
     const storedRules = JSON.parse(localStorage.getItem('rules') || '[]');
     setRules(storedRules);
@@ -67,7 +68,7 @@ const RulesPage = () => {
   const handleSubmit = (rule: Rule) => {
     const updatedRules = [...rules, rule];
 
-    // Update local storage with the updated rules
+    // Update local storage with the new rules
     localStorage.setItem('rules', JSON.stringify(updatedRules));
 
     setRules(updatedRules);

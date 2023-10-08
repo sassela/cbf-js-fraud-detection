@@ -56,9 +56,9 @@ const TransactionsPage = () => {
       rule.properties.forEach((r) => {
         requestBody[r.propertyName] = r.propertyValue;
       });
-      console.log(requestBody)
 
       try {
+        // fetch similar transactions that closely match the given rule
         const response = await fetch('/similar-transactions', {
           method: 'POST',
           headers: {
@@ -84,7 +84,10 @@ const TransactionsPage = () => {
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
 
+    // update the page number
     const fromValue = (newPage - 1) * itemsPerPage;
+
+    // fetch the transactions on that page
     getTransactions(fromValue, itemsPerPage)
   };
 

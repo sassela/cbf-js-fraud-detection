@@ -12,11 +12,7 @@ const TransactionRow = ({ transaction, id }: TransactionRowProps) => {
   const navigate = useNavigate();
 
   const toggleCheckbox = () => {
-    const updatedClass = isChecked ? 0 : 1;
     setIsChecked(!isChecked);
-    // TODO: ES call
-    const updatedTransaction = { ...transaction, Class: updatedClass };
-    console.log(updatedTransaction);
   };
 
   const handleViewDetailClick = () => {

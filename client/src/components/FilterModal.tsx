@@ -13,7 +13,6 @@ const FilterModal = ({ rules, onClose, onSubmit }: FilterModalProps) => {
 
   const handleRuleSelect = (rule: Rule) => {
     setSelectedRule(rule);
-    console.log('Selected Rule:', rule);
   };
 
   return (

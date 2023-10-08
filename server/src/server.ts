@@ -30,11 +30,6 @@ app.use((_req, res, next) => {
   next();
 });
 
-// Handle GET requests to /api route
-app.get("/api", (req: Request, res: Response) => {
-  res.json({ message: "Hello from server!" });
-});
-
 app.get("/transaction/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -66,12 +61,14 @@ app.get("/transaction/:id", async (req: Request, res: Response) => {
 app.get("/transactions", async (req: Request, res: Response) => {
   try {
     const { from, size } = req.query;
+    const defaultFrom = 0;
+    const defaultSize = 10;
 
     const fromValue: string | undefined = typeof from === 'string' ? from : undefined;
     const sizeValue: string | undefined = typeof size === 'string' ? size : undefined;
 
-    const fromNumber = fromValue ? parseInt(fromValue) : 0;
-    const sizeNumber = sizeValue ? parseInt(sizeValue) : 50;
+    const fromNumber = fromValue ? parseInt(fromValue) : defaultFrom;
+    const sizeNumber = sizeValue ? parseInt(sizeValue) : defaultSize;
 
     const response = await client.search({
       index: es_index,

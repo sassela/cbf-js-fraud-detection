@@ -6,15 +6,8 @@ import TransactionTable from '../components/TransactionTable';
 test('it renders the transaction table correctly', () => {
   render(<TransactionTable transaction={mockHit} />);
 
-  // Check if the table head is rendered correctly
   expect(screen.getByText('Field')).toBeInTheDocument();
   expect(screen.getByText('Value')).toBeInTheDocument();
-
-  // // Check if table rows are rendered for each field and value
-  // for (const [field, value] of Object.entries(mockHit._source).take(4)) {
-  //   expect(screen.getByText(field)).toBeInTheDocument();
-  //   expect(screen.getByText(value.toString())).toBeInTheDocument();
-  // }
 });
 
 const mockTransaction:Transaction = {

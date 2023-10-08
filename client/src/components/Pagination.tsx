@@ -18,6 +18,7 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }:Pagi
     }
 
     if (totalPages <= maxPageButtons) {
+      // if there are a small number of pages, only render the page numbers
       return pageNumbers.map((number) => (
         <li
           key={number}
@@ -30,6 +31,7 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }:Pagi
         </li>
       ));
     } else {
+      // if there are a larger number of pages render truncated pagination with 'first' and 'last' buttons
       return (
         <>
           <li className={`page-item${currentPage === 1 ? ' disabled' : ''}`} onClick={() => onPageChange(1)}>

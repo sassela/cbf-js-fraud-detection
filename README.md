@@ -5,20 +5,28 @@ The application is deployed via Heroku to https://js-fraud-detection-7db71b7874d
 
 ### Prerequisites
 * Node.js v20.0.0+ and npm. Both are downloadable from https://nodejs.org/en
+* request access to the `.env` file, containing ElasticSearch Cloud credentials from [@sassela](https://github.com/sassela)
 
 ### Getting started
-1. request access to the `.env` file, containing ElasticSearch Cloud creds, from [@sassela](https://github.com/sassela)
-2. start the Node.js Express server:
+From the `cbf-js-fraud-detection` directory...
+1. start the application: `npm run dev`
+2. open your browser to view the application at http://localhost:3000
+
+### Testing
+From the `cbf-js-fraud-detection` directory...
+
+####  run server tests
 ```bash
 cd server
-npm start
+npm test # includes test coverage
 ```
-1. start the React application
+####  run client tests
 ```bash
 cd client
-npm start
+npm test
+
+npm run test:coverage # to see test coverage
 ```
-1. open your browser to view the application at http://localhost:3000
 
 ## Project documentation
 * [Requirements](Requirements.md)

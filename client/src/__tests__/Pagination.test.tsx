@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import Pagination from '../src/components/Pagination';
+import Pagination from '../components/Pagination';
 
 describe('Pagination', () => {
   it('renders page numbers and handles page change', () => {
