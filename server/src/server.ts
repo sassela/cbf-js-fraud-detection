@@ -65,12 +65,21 @@ app.get("/transaction/:id", async (req: Request, res: Response) => {
 // Handle GET requests to /transactions route
 app.get("/transactions", async (req: Request, res: Response) => {
   try {
+    const { from, size } = req.query;
+
+    const fromValue: string | undefined = typeof from === 'string' ? from : undefined;
+    const sizeValue: string | undefined = typeof size === 'string' ? size : undefined;
+
+    const fromNumber = fromValue ? parseInt(fromValue) : 0;
+    const sizeNumber = sizeValue ? parseInt(sizeValue) : 50;
+
     const response = await client.search({
       index: es_index,
+      from: fromNumber,
+      size: sizeNumber,
     });
 
     res.json(response);
-    // TODO: res.json(response.hits.hits);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error." });
@@ -122,9 +131,6 @@ app.post('/similar-transactions', async (req, res) => {
     };
 
     const response = await client.search(searchRequest);
-
-    console.log("API response:")
-    console.log(response)
     res.json(response);
   } catch (error) {
     console.error('Error:', error);

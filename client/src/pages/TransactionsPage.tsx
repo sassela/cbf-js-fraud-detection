@@ -4,16 +4,27 @@ import { ApiResponse } from '../types/ApiResponse';
 import FilterModal from '../components/FilterModal';
 import { Rule } from '../types/Rule';
 import HeaderRow from '../components/HeaderRow';
+import Pagination from '../components/Pagination';
+
 
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState<ApiResponse | null>(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [_selectedRule, setSelectedRule] = useState<Rule | null>(null);
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [rules, setRules] = useState<Rule[]>([]);
+  const startIndex = 0;
+  const itemsPerPage = 30;
+  // hardcoded due to funny behaviour when fetching the count via the API
+  const transactionsCount = 10000;
 
-  useEffect(() => {
-    fetch('/transactions')
+  const getTransactions = (from:number, size:number) => {
+    const queryParams = new URLSearchParams({
+      from: from.toString(),
+      size: size.toString()
+    });
+
+    fetch(`/transactions?${queryParams}`)
       .then((response) => response.json())
       .then((data: ApiResponse) => {
         setTransactions(data);
@@ -21,6 +32,10 @@ const TransactionsPage = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+  }
+
+  useEffect(() => {
+    getTransactions(startIndex, itemsPerPage)
   }, []);
 
   useEffect(() => {
@@ -66,6 +81,13 @@ const TransactionsPage = () => {
     setShowFilterModal(false);
   };
 
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+
+    const fromValue = (newPage - 1) * itemsPerPage;
+    getTransactions(fromValue, itemsPerPage)
+  };
+
   return (
     <>
       <HeaderRow
@@ -75,7 +97,21 @@ const TransactionsPage = () => {
       />
       {
         transactions ? (
+          <>
+          <Pagination
+              totalItems={transactionsCount}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
           <TransactionsTable transactions={transactions.hits.hits} />
+          <Pagination
+              totalItems={transactionsCount}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+            </>
         ) : (
           <p>Loading...</p>
         )}
